@@ -2,12 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const TodoModel = require('./Models/todo')
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/todo').then(console.log('Connected to MongoDB')).catch(err => console.log(err))
+mongoose.connect(process.env.MONGO_STR).then(console.log('Connected to MongoDB')).catch(err => console.log(err))
 
 app.get('/get', (req, res) => {
     TodoModel.find()
